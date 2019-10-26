@@ -36,3 +36,7 @@ How to handle named arguments in a function
 Camilo Villegas [LinkedIn](https://www.linkedin.com/in/camilo-villegas-98a135158/)
 [Medium](https://medium.com/@mrdoom)
 [Twitter](https://twitter.com/mr_doomus)
+
+Juan Diego Arango [LinkedIn](https://www.linkedin.com/in/juan-diego-arango-piedrahita-6679a3193/)
+[Medium](https://medium.com/@juandiegoap33)
+[Twitter](https://twitter.com/JuanDiegoArang)
