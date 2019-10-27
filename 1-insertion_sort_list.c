@@ -1,77 +1,49 @@
 #include "sort.h"
 
 /**
- * insert_dnodeint_at_index - Insert a node in a index of the list.
- * @h: Head of the list.
- * @idx: Index.
- * @n: Element.
- * Return: New node inserted in the list.
- */
-dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
-{
-	dlistint_t *current, *node, *new_node;
-	unsigned int i;
-
-	new_node = malloc(sizeof(dlistint_t));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->n = n;
-	current = *h;
-	if (idx == 0)
-	{
-		node = add_dnodeint(&*h, n);
-		free(new_node);
-		return (node);
-	}
-	else if (*h == NULL)
-		return (NULL);
-	for (i = 0; i < idx && current != NULL; i++, current = current->next)
-	{
-		;
-	}
-	if (current == NULL)
-	{
-		if (i == idx)
-		{
-			node = add_dnodeint_end(&*h, n);
-			free(new_node);
-			return (node);
-		}
-		else
-			return (NULL);
-	}
-	else
-	{
-		new_node->next = current;
-		new_node->prev = current->prev;
-		(current->prev)->next = new_node;
-		current->prev = new_node;
-		return (new_node);
-	}
-}
+ * insertion_sort_list - Sorts integers using Insertion sort algorithm.
+ * @list: List of data.
+ *
+ * Return: void.
+**/
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t current = *list, tmp;
+	listint_t *current = *list, *tmp;
 	int var;
 
-	while(current->next != NULL)
+	while (current != NULL)
 	{
 		if (current == *list)
-			current = current->next
+			current = current->next;
 		else
 		{
-			tmp = current
-			var = current->n
-			while (tmp->prev->n > var && tmp->prev != *list)
+			tmp = current;
+			var = current->n;
+			current = current->next;
+			while (tmp->prev->n > var && tmp->prev != NULL)
 			{
-				if (tmp != *list)
-					tmp = tmp->prev
+				tmp->prev->next = tmp->next;
+				if (tmp->next != NULL)
+					tmp->next->prev = tmp->prev;
+				if (tmp->prev->prev != NULL)
+				{
+					tmp->prev->prev->next = tmp;
+					tmp->next = tmp->prev;
+					tmp->prev = tmp->prev->prev;
+					tmp->next->prev = tmp;
+					print_list(*list);
+				}
+				else
+				{
+					tmp->next = tmp->prev;
+					tmp->prev = NULL;
+					tmp->next->prev = tmp;
+					*list = tmp;
+					print_list(*list);
+					break;
+				}
 			}
-			/* delete node*/
-			current->prev->next = current->next
-			current->next->prev = current->next->prev->prev
-			
-			/* insert node */
-			
+		}
+	}
 }
