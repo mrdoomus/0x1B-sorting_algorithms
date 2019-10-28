@@ -22,7 +22,7 @@ void quick_sort(int *array, size_t size)
 **/
 void partition_caller(int *array, int left, int right, size_t size)
 {
-	int pivot;
+	int pivot = 0;
 
 	if (left < right)
 	{
@@ -46,7 +46,7 @@ int partition(int *array, int left, int right, size_t size)
 	int pivot = array[right];
 	int j = 0, tmp = 0;
 
-	for (j = left; j <= right - 1; j++)
+	for (j = left; j < right; j++)
 	{
 		if (array[j] < pivot)
 		{
@@ -54,7 +54,8 @@ int partition(int *array, int left, int right, size_t size)
 			tmp = array[i];
 			array[i] = array[j];
 			array[j] = tmp;
-			print_array(array, size);
+			if (i != j)
+				print_array(array, size);
 		}
 	}
 	if (pivot < array[i + 1])
@@ -62,7 +63,8 @@ int partition(int *array, int left, int right, size_t size)
 		tmp = array[i + 1];
 		array[i + 1] = array[right];
 		array[right] = tmp;
-		print_array(array, size);
+		if (i + 1 != j)
+			print_array(array, size);
 	}
 	return (i + 1);
 }
