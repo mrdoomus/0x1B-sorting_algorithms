@@ -9,9 +9,14 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current = *list, *tmp;
+	listint_t *current, *tmp;
 	int var;
 
+	if (list == NULL || *list == NULL)
+		return;
+	if ((*list)->next == NULL)
+		return;
+	current = *list;
 	while (current != NULL)
 	{
 		if (current == *list)
@@ -27,16 +32,14 @@ void insertion_sort_list(listint_t **list)
 				if (tmp->next != NULL)
 					tmp->next->prev = tmp->prev;
 				if (tmp->prev->prev != NULL)
-				{
-					tmp->prev->prev->next = tmp;
+				{ tmp->prev->prev->next = tmp;
 					tmp->next = tmp->prev;
 					tmp->prev = tmp->prev->prev;
 					tmp->next->prev = tmp;
 					print_list(*list);
 				}
 				else
-				{
-					tmp->next = tmp->prev;
+				{ tmp->next = tmp->prev;
 					tmp->prev = NULL;
 					tmp->next->prev = tmp;
 					*list = tmp;
