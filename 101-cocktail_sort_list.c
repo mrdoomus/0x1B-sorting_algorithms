@@ -8,9 +8,9 @@
 void swap(listint_t **list, listint_t **node)
 {
 	listint_t *left, *right;
+
 	left = (*node);
 	right = (*node)->next;
-
 	if (left->prev)
 		left->prev->next = right;
 	else
@@ -58,15 +58,15 @@ void cocktail_sort_list(listint_t **list)
 		node = node->prev;
 		while (node->prev)
 		{
-			if (node->n > node->next->n)
+			if (node->n < node->prev->n)
 			{
 				swapped = 1;
+				node = node->prev;
 				swap(list, &node);
 				print_list(*list);
 			}
 			else
 				node = node->prev;
 		}
-		node = node->next;
 	}
 }
