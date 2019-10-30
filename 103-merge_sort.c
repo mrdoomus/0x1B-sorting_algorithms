@@ -16,7 +16,7 @@ void merge_sort(int *array, size_t size)
 	if (sub_array == NULL)
 		return;
 
-	merge_recursion(array, sub_array, 0, size - 1);
+	merge_caller(sub_array, array, 0, size);
 	free(sub_array);
 }
 
@@ -27,11 +27,11 @@ void merge_sort(int *array, size_t size)
  * @left: Starting index
  * @right: Ending index
 **/
-void merge_caller(int *array, int *sub_array, int left, int right)
+void merge_caller(int *sub_array, int *array, int left, int right)
 {
 	int mid;
 
-	if (right - left < 1)
+	if (right - left < 2)
 		return;
 	mid = left + (right - left) / 2;
 	merge_caller(sub_array, array, left, mid);
@@ -47,28 +47,38 @@ void merge_caller(int *array, int *sub_array, int left, int right)
  * @middle: Middle index
  * @right: Ending index
  */
-void merge_subarray(int *arr, int *array, int left, int mid, int right)
+void merge(int *sub_array, int *array, int left, int mid, int right)
 {
-	int i, j;
-	int k = 0;
-
-	printf("Merging...\n");
-	printf("[left]: ");
-	print_array(array + left, mid  - left);
-	printf("[right]: ");
-	print_array(array + mid, right - mid);
+	int i, j, k = 0;
 
 	for (i = left, j = mid; i < mid && j < right; k++)
 	{
 		if (array[i] < array[j])
-			sub_array[k] = array[i++];
+		{
+			sub_array[k] = array[i];
+			i++;
+		}
 		else
-			sub_array[k] = array[j++];
+		{
+			sub_array[k] = array[j];
+			j++;
+		}
 	}
-
-	/** Fill sub array **/
-
-	printf("[Done]: ");
-	print_array(array + left, right - left);
+	while (i < mid)
+	{
+		sub_array[k] = array[i];
+		i++;
+		k++;
+	}
+	while (j < right)
+	{
+		sub_array[k] = array[j];
+		j++;
+		k++;
+	}
+	for (i = 0, k = 0; k < right; k++)
+	{
+		array[i] = sub_array[k];
+		i++;
+	}
 }
-
