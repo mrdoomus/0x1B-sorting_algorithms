@@ -31,12 +31,13 @@ void merge_caller(int *sub_array, int *array, int left, int right)
 {
 	int mid;
 
-	if (right - left < 2)
-		return;
-	mid = left + (right - left) / 2;
-	merge_caller(sub_array, array, left, mid);
-	merge_caller(sub_array, array, mid, right);
-	merge(sub_array, array, left, mid, right);
+	if (right - left > 1)
+	{
+		mid = left + (right - left) / 2;
+		merge_caller(sub_array, array, left, mid);
+		merge_caller(sub_array, array, mid, right);
+		merge(sub_array, array, left, mid, right);
+	}
 }
 
 /**
@@ -44,13 +45,18 @@ void merge_caller(int *sub_array, int *array, int left, int right)
  * @array: List of data
  * @sub_array: Holder for array
  * @left: Starting index
- * @middle: Middle index
+ * @mid: Middle index
  * @right: Ending index
- */
+**/
 void merge(int *sub_array, int *array, int left, int mid, int right)
 {
 	int i, j, k = 0;
 
+	printf("Merging...\n");
+	printf("[left]: ");
+	print_array(array + left, mid - left);
+	printf("[right]: ");
+	print_array(array + mid, right - mid);
 	for (i = left, j = mid; i < mid && j < right; k++)
 	{
 		if (array[i] < array[j])
@@ -76,9 +82,11 @@ void merge(int *sub_array, int *array, int left, int mid, int right)
 		j++;
 		k++;
 	}
-	for (i = 0, k = 0; k < right; k++)
+	for (i = 0, k = left; k < right; k++)
 	{
-		array[i] = sub_array[k];
+		array[k] = sub_array[i];
 		i++;
 	}
+	printf("[Done]: ");
+	print_array(array + left, right - left);
 }
